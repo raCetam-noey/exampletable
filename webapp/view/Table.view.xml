@@ -1,0 +1,111 @@
+<mvc:View
+    controllerName="exampletable.controller.Table"
+	xmlns:t="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:c="sap.ui.core"
+	xmlns="sap.m"
+	height="100%">
+			<t:Table
+				rows="{view>/}"
+				visibleRowCount="5"
+				ariaLabelledBy="title"
+				id="table"
+				>
+				<t:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="title" text="상품 입력"/>
+
+						<ToolbarSpacer/>
+		
+						<Button text="추가" press=".addRow"/>
+						<Button text="초기화" press=".onReset"/>
+						<Button text="출력" press=".onPrint"/>
+					</OverflowToolbar>
+				</t:extension>
+				<t:columns>
+					<t:Column width="auto" hAlign="Center">
+						<Label text="상품명" />
+						<t:template>
+							<Input id="input1" value="{view>ProductName}" />
+						</t:template>
+					</t:Column>
+					<t:Column width="auto" hAlign="Center">
+						<Label text="일자" />
+						<t:template>
+							<DatePicker id="input2" value="{
+								path: 'view>Date',
+								type: 'sap.ui.model.type.Date'}"
+								placeholder="YYYY년MM월DD일"/>
+						</t:template>
+					</t:Column>
+					<t:Column width="auto" hAlign="Center">
+						<Label text="카테고리" />
+						<t:template>
+							<Select id="input3" selectedKey="{view>Category}" items="{/Category}" width="100%">
+								<c:Item text="{type}" key="{type}" />
+							</Select>
+						</t:template>
+					</t:Column>
+					<t:Column width="auto" hAlign="Center">
+						<Label text="수량" />
+						<t:template>
+							<Input id="input4" value="{view>Quantity}" />
+						</t:template>
+					</t:Column>
+					<t:Column width="auto" hAlign="Center">
+						<Label text="가격" />
+						<t:template>
+							<Input id="input5" value="{view>Price}"/>
+						</t:template>
+					</t:Column>
+				</t:columns>
+			</t:Table>
+			<Table showNoData="false"
+			items="{
+				path: 'view2>/'
+			}">
+			<headerToolbar>
+				<OverflowToolbar>
+					<content>
+						<Title text="상품 내역" level="H1"/>
+					</content>
+				</OverflowToolbar>
+			</headerToolbar>
+			<columns>
+				<Column width="auto" hAlign="Center">
+					<Text text="상품명" />
+				</Column>
+				<Column width="auto" hAlign="Center">
+					<Text text="카테고리" />
+				</Column>
+				<Column width="auto" hAlign="Center">
+					<Text text="일자" />
+				</Column>
+				<Column width="auto" hAlign="Center">
+					<Text text="수량" />
+				</Column>
+				<Column width="auto" hAlign="Center">
+					<Text text="가격" />
+				</Column>
+				<Column width="auto" hAlign="Center">
+					<Text text="총가격" />
+				</Column>
+			</columns>
+			<items>
+				<ColumnListItem>
+					<cells>
+						<ObjectIdentifier title="{view2>ProductName}"/>
+						<Text text="{path: 'view2>Category'}"/> 
+						<ObjectNumber
+							number="{ path: 'view2>Date', type: 'sap.ui.model.type.Date'}"/>
+						<ObjectNumber
+							number="{view2>Quantity}" unit="개"/>
+						<ObjectNumber
+							number="{ path: 'view2>Price', type: 'sap.ui.model.type.Float'}" unit="원" />
+						<ObjectNumber
+							number="{ path: 'view2>TotalPrice', type: 'sap.ui.model.type.Float'}" unit="원"/>
+					</cells>
+				</ColumnListItem>
+			</items>
+		</Table>
+</mvc:View>
