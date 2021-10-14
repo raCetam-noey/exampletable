@@ -52,7 +52,8 @@ sap.ui.define([
 				var oTableData = that.getView().getModel("view").getProperty("/");
 				var oResultData = that.getView().getModel("view2").getProperty("/");
 				var iResultLength = oResultData.length;
-				
+				var oType = new sap.ui.model.type.Integer();
+
 										
 				if (iIndex < 0) {
 					sMsg = "선택된 내용이 없습니다"; //sMsg에 메세지 담는 방식
@@ -67,7 +68,13 @@ sap.ui.define([
 							MessageBox.information("수량을 입력해 주세요"); 
 
 						} else if (oTableData[i].Price =="") {
-							MessageBox.information("금액을 입력해 주세요"); 
+							MessageBox.information("숫자를 입력해 주세요"); 
+
+						} else if (isNaN(Number(oTableData[i].Quantity))) {
+							MessageBox.information("숫자 입력 안 됨"); 
+							
+						} else if (isNaN(Number(oTableData[i].Price))) {
+							MessageBox.information("숫자 입력 안 됨"); 
 
 						} else {
 
@@ -76,23 +83,24 @@ sap.ui.define([
 								onClose: function(oEvent) {
 									if (oEvent === sap.m.MessageBox.Action.OK) {
 		
-										for (var i = 0; i < oTableData.length; i++){				
-											oResultData[i] = oTableData[i];
-											oResultData[i].TotalPrice = oTableData[i].Quantity * oTableData[i].Price
+										// for (var i = 0; i < oTableData.length; i++){				
+										// 	oResultData[i] = oTableData[i];
+										// 	oResultData[i].TotalPrice = oTableData[i].Quantity * oTableData[i].Price
 										
-										}
-										// for (var i; i < iRow.length; i++) {
-										// 	oResultData.push({});
-										// 	oResultData[iResultLength + i].ProductName = oTableData[iRow[i]].ProductName;
-										// 	oResultData[iResultLength + i].Date = oTableData[iRow[i]].Date;
-										// 	oResultData[iResultLength + i].Category = oTableData[iRow[i]].Category;
-										// 	oResultData[iResultLength + i].Quantity = oTableData[iRow[i]].Quantity;
-										// 	oResultData[iResultLength + i].Price = oTableData[iRow[i]].Price;
 										// }
+
+										for (var i = 0; i < iRow.length; i++) {
+											oResultData.push({});
+											oResultData[iResultLength + i].ProductName = oTableData[iRow[i]].ProductName;
+											oResultData[iResultLength + i].Date = oTableData[iRow[i]].Date;
+											oResultData[iResultLength + i].Category = oTableData[iRow[i]].Category;
+											oResultData[iResultLength + i].Quantity = oTableData[iRow[i]].Quantity;
+											oResultData[iResultLength + i].Price = oTableData[iRow[i]].Price;
+										}
 										that.getView().getModel("view").refresh(true);
 										that.getView().getModel("view2").refresh(true) ;
-										console.log(oTableData[0].ProductName);
-										console.log(oResultData[0].ProductName);
+										console.log(oTableData[0]);
+										console.log(oResultData[0]);
 									}
 								}
 							});							

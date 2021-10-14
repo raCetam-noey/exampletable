@@ -49,13 +49,13 @@
 					<t:Column width="auto" hAlign="Center">
 						<Label text="수량" />
 						<t:template>
-							<Input id="input4" value="{view>Quantity}" />
+							<Input id="input4" value="{view>Quantity}"/>
 						</t:template>
 					</t:Column>
 					<t:Column width="auto" hAlign="Center">
 						<Label text="가격" />
 						<t:template>
-							<Input id="input5" value="{view>Price}"/>
+							<Input id="input5" value="{view>Price}" type="Number"/>
 						</t:template>
 					</t:Column>
 				</t:columns>
